@@ -1,0 +1,29 @@
+AddType video/ogg .ogv
+AddType video/mp4 .mp4
+AddType video/webm .webm
+
+
+
+RewriteEngine on
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME}\.php -f
+#RewriteRule ^(.*)$ $1.php
+
+#RewriteRule inicio index
+
+
+RewriteRule ^([-a-zA-Z0-9]+)$ index.php?var1=$1 [L]
+RewriteRule ^([-a-zA-Z0-9]+)/$ index.php?var1=$1 [L]
+RewriteRule ^([-a-zA-Z0-9]+)/([-a-zA-Z0-9]+)$ index.php?var1=$1&var2=$2 [L]
+RewriteRule ^([-a-zA-Z0-9]+)/([-a-zA-Z0-9]+)/$ index.php?var1=$1&var2=$2 [L]
+RewriteRule ^([-a-zA-Z0-9]+)/([-a-zA-Z0-9]+)/(/?|[-a-zA-Z0-9]+)$ index.php?var1=$1&var2=$2&var3=$3 [L]
+RewriteRule ^([-a-zA-Z0-9]+)/([-a-zA-Z0-9]+)/(/?|[-a-zA-Z0-9]+)/$ index.php?var1=$1&var2=$2&var3=$3 [L]
+RewriteRule ^([-a-zA-Z0-9]+)/([-a-zA-Z0-9]+)/(/?|[-a-zA-Z0-9]+)/([-a-zA-Z0-9]+)$ index.php?var1=$1&var2=$2&var3=$4&var3=$4 [L]
+RewriteRule ^([-a-zA-Z0-9]+)/([-a-zA-Z0-9]+)/(/?|[-a-zA-Z0-9]+)/([-a-zA-Z0-9]+)/$ index.php?var1=$1&var2=$2&var3=$4&var3=$4 [L]
+
+ErrorDocument 404: http://iliangonzalez.com/
+
+
+BrowserMatch MSIE ie
+Header set X-UA-Compatible "IE=Edge,chrome=1" env=ie
+

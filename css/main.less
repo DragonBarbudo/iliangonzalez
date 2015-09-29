@@ -1,0 +1,682 @@
+@import "cssresetframe";
+@import "normalize.css";
+@import "fbox";
+@import "mediaelement";
+
+/*	*	*	*	*	*	*	*	*	GRID 4 LESS		*	*	*	*	*	*	*	*/
+@columns: 16;
+@width: 960px;
+@gutt: 10px;
+@w:@width/@columns;
+.container(@padd:0px) { margin: 0 auto; width: @width; padding-top: @padd; padding-bottom: @padd; }
+.grid(@gu:@gutt) { display: inline; float: left; position: relative; margin-left: @gu; margin-right: @gu; }
+.alpha { margin-left: 0;  }
+.omega { margin-right: 0; }
+.grid_(@num, @pushpull:0, @align:left, @gutter:@gutt){ .grid(@gutter); width: (@w*@num)-(@gutter*2); left: @w*@pushpull; text-align: @align;  }
+.cont_(@num, @pushpull:0, @align:left, @gutter:@gutt){ display: inline; float: left; position: relative; width: (@w*@num); left: @w*@pushpull; text-align: @align;  margin:0;}
+.clear { clear: both; display: block; overflow: hidden; visibility: hidden; width: 0; height: 0; }
+.tester{ position: fixed; top: 0; background: #aaa; height: 100%;width: @width;left: 50%;margin-left: -(@width/2);z-index: 1; opacity: 0.2; div { .grid_(1); height: 100%; background: #eee; }}
+
+
+// Breakpoints
+// ------------------------- Source: http://blog.scur.pl/2012/06/variable-media-queries-less-css/
+@highdensity: ~"only screen and (-webkit-min-device-pixel-ratio: 1.5)",
+              ~"only screen and (min--moz-device-pixel-ratio: 1.5)",
+              ~"only screen and (-o-min-device-pixel-ratio: 3/2)",
+              ~"only screen and (min-device-pixel-ratio: 1.5)";
+@mobile:      ~"only screen and (max-width: 529px)";
+@tablet:      ~"only screen and (min-width: 530px) and (max-width: 949px)";
+@desktop:     ~"only screen and (min-width: 950px) and (max-width: 1128px)";
+@desktop-xl:  ~"only screen and (min-width: 1129px)";
+
+
+
+/*	*	*	*	*	*	*	*	*	end		*	*	*	*	*	*	*	*/
+
+/*	COLORES	*/
+@c1: #fff; // blanco
+@c2: #555; // negro
+/*@c3: #76ffed; //blue cian*/ @c3: #ffffaa;
+@c4: #edfed2; //green
+@c5: #fed4fa; //pink
+@c6: #ffff66; // yellow
+
+
+.tester{
+	display: none;
+}
+
+/*	*	*	*	*	*	*	*	*	MAIN CSS		*	*	*	*	*	*	*	*/
+
+.font {
+	font: 16px/16px Courier, serif;
+}
+body{
+  .font;
+  background: @c1;
+  color: @c2;
+}
+
+
+
+
+
+
+/* subrayado */
+*::before{
+  width: 0%;  
+}
+.active, .sub-blue, .sub-green, .sub-pink{
+  display: inline-block;
+  position: relative;
+}
+.activeblock{
+  display: block;
+  position: relative;
+  
+}
+.active::before, .activeblock::before , .sub-blue::before, .sub-green::before, .sub-pink::before{
+  content: "";
+  position: absolute;
+  left: -5%;
+  top: 0;
+  display: block;
+  width:110%;
+  height: 120%;
+  z-index:-1;
+  .subrayado;
+}
+.sub-blue::before{ background: @c3; }
+.sub-green::before{ background: @c4; }
+.sub-pink::before{ background: @c5; }
+.active::before{ background: @c6; }
+.activeblock::before{ background: @c6; }
+
+
+.subrayado{
+  transform: rotate(-2deg);
+  -ms-transform: rotate(-2deg); /* IE 9 */
+  -webkit-transform: rotate(-2deg); /* Safari and Chrome */
+
+  animation-name: subrayanim;
+  animation-duration: 1s;
+  animation-iteration-count: 1;	
+  animation-direction: normal;
+  animation-delay: 0;
+  animation-play-state: running;
+  animation-fill-mode: forwards;
+  -webkit-animation-name: subrayanim;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: 1;	
+  -webkit-animation-direction: normal;
+  -webkit-animation-delay: 0;
+  -webkit-animation-play-state: running;
+  -webkit-animation-fill-mode: forwards;
+}
+
+
+
+@keyframes subrayanim {
+  0%{ width: 0%; }
+  100%{  width: 110%; }
+}
+@-webkit-keyframes subrayanim {
+  0%{ width: 0%; }
+  100%{  width: 110%; }
+}
+
+
+
+
+
+/*    -   -    - content   -    -   -    -   -    -   -  */
+.content{
+  margin: 0 auto;
+  position: relative;
+  padding: 20px 0;
+  width: 960px;
+  height: 100%;
+  @media @tablet, @mobile{
+	  width: 90%;
+  }
+
+}
+
+
+/*    -   -    - NAV   -    -   -    -   -    -   -  */
+nav{
+  margin: 50px;
+  width: 110px;
+  @media @tablet, @mobile{
+	  margin: 0;
+  }
+  ul{
+    border-left: 2px solid @c2*2.7;
+    li{
+      margin-left: 5px;
+      padding: 3px 10px;
+      display: block;
+      a{
+        text-decoration: none;
+        color: @c2;
+        &:hover, &:visited{
+          color:@c2;
+        }
+      }
+    }
+  }
+}
+
+
+
+/*    -   -    - Page 1: INDEX   -    -   -    -   -    -   -  */
+h1{
+  font-weight: normal;
+  position: absolute;
+  right: 10%;
+  top: 30%;
+  a, a:visited{
+    color: @c2;
+    text-decoration:none;
+    background: transparent;
+  }
+  a:hover{
+  	color: @c2;
+  }
+}
+
+
+/*    -   -    - Page 2: WORK   -    -   -    -   -    -   -  */
+
+.workslider{
+  width: 880px;
+  height: 230px;
+  margin: 4% auto;
+  overflow:hidden;
+  @media @tablet, @mobile{
+	  overflow: scroll;
+	  width: 100%;
+  }
+ .workslider_in{
+    .group{
+      display: inline-block;
+      width:100px;
+      height: 200px;
+      a{
+        margin: 10px;
+        display: block;
+        width: 100px;
+        height: 100px;
+        position: relative;
+        .img{
+          width: 100px;
+          height: 100px;
+          overflow: hidden;
+          //margin-left: -100px;
+          //margin-top: -100px;
+          z-index:1;
+          //bottom:25px;
+          img{
+	          width: 230%;
+	          margin-left: -50%;
+	          margin-top:-50%;
+          }
+        }
+        .title{
+	        width: 100%;
+	        overflow: hidden;
+	        padding: 2px 0;
+	        
+        }
+        div{
+          position:absolute;
+          color:@c2;
+          font-size: 0.6em;
+          text-align: center;
+          line-height: 1em;
+        
+        }
+      }
+      a:first-child{
+        img{
+          //top:25px;
+        }
+        div{
+          top: 0;
+        }
+        &+a{
+          img{
+            //bottom:25px;
+          }
+          div{
+            bottom: 2px;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.activeWork{
+    width:880px;
+    margin: 0 auto;
+    @media @tablet{
+	    width: 100%;
+    }
+    
+    .leftWork{
+      float:left;
+      width:40%;
+		.gallery{
+			position: relative;
+			overflow: hidden;
+
+		  ul{
+		    list-style:none;
+		    height: 220px;
+		    li{
+		    	float: left;
+		    	height: 220px;
+		        img{
+			        width: 100%;
+		        }
+		    }
+		  }
+		  .unslider-arrow{
+			  position: absolute;
+			  z-index: 2;
+			  bottom: 45%;
+			  .font;
+			  font-size: 1.6em;
+			  text-decoration: none;
+			  color: @c1;
+			  background: rgba(30,30,30,0.2);
+			  display: block;
+			  padding: 5px 5px;
+			  &.prev{ left: 0;}
+			  &.next{right: 0;}
+		  }
+		}
+		.projectMenu{
+			list-style: none;
+			margin: 20px 0;
+			li{
+				.font;
+				margin-top: 5px;
+				a{
+					text-decoration: none;
+					color: @c2;
+					font-size: 0.9em;
+					 &:hover, &:visited{
+			          background:@c3;
+			        }
+				}
+				@media @mobile{
+					float: left;
+					margin: 10px ;
+				}
+			}
+		}
+		@media @mobile{
+				display: block;
+				width: 100%;
+				min-height: 320px;	
+			}
+    }
+    .rightWork{
+     float:right;
+     width:55%;
+    }
+    @media @mobile{
+    	width: 100%;
+	    .leftWork{
+		    float: none;
+		    width: 100%;
+	    }
+	    .rightWork{
+	    	float: none;
+		    width: 90%;
+		    margin: 5%;
+	    }
+    }
+}
+
+
+
+.openVideo{
+	display: none;
+}
+
+.cv{
+	text-decoration: none;
+	color: @c2;
+	font-weight: bold;
+	&:hover{
+		background: @c3;
+		color: @c2;
+	}
+}
+
+address{
+	width: 45%;
+	float: left;
+	font-style: normal;
+	text-align: right;
+	margin: 34px 2.5%;
+	a{
+		text-decoration: none;
+		background: @c3;
+		color: @c2;
+		&:hover{
+			background: @c4;
+			color: @c2;
+		}
+	}
+	@media @tablet, @mobile{
+		width: 90%;
+		float: none;
+	}
+
+}
+
+.contactform{
+	width: 45%;
+	margin: 2.5%;
+	float: right;
+	div{
+		margin: 10px 0;
+		label{
+			display: block;
+		}
+		input,textarea{
+			width: 100%;
+			border: none;
+			border: 1px solid @c2;
+			.font;
+		}
+	}
+	button{
+		float: right;
+		background: @c3;
+		color: @c2;
+		padding: 5px 20px;
+		border: none;
+		.font;
+		&:hover{
+			background: @c4;
+		}
+	}
+	@media @tablet, @mobile{
+		width: 90%;
+		float: none;
+	}
+}
+
+
+/*    -   -    - Page 3: BIO   -    -   -    -   -    -   -  */
+
+
+
+
+/*    -   -    - Page : ADMIN   -    -   -    -   -    -   -  */
+
+
+/*! miniTip CSS - v1.5.3 */
+#miniTip{background-color:@c3/1.1;color:@c2;font-size:.8em;display:none;position:absolute;top:0;left:0;z-index:99999; }
+#miniTip_t{background-color:@c4;padding:4px 6px}
+#miniTip_c{padding:4px 8px}
+#miniTip_a{width:0;height:0;position:absolute;top:0;left:0}
+#miniTip .n{border-left:8px solid transparent;border-right:8px solid transparent;border-top:8px solid @c3;border-bottom:0}
+#miniTip .s{border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid @c3;border-top:0}
+#miniTip .e{border-bottom:8px solid transparent;border-top:8px solid transparent;border-right:8px solid @c3;border-left:0}
+#miniTip .w{border-bottom:8px solid transparent;border-top:8px solid transparent;border-left:8px solid @c3;border-right:0}
+
+
+.simplecontent{
+	width: 880px;
+	margin: 0 auto;
+}
+
+
+#formlogin{
+	width: 400px;
+	margin: 0 auto;
+	label{
+		display: block;
+		text-align: center;
+		margin: 10px 0;
+	}
+	input{
+		width: 100%;
+		text-align: center;
+		.font;
+	}
+	button{
+		display: block;
+		width: 100px;
+		margin: 10px auto;
+		border: none;
+		background: @c5;
+		color: @c2;
+		padding: 5px;
+		.font;
+		&:hover{
+			background: @c3;
+		}
+	}
+}
+#formlogout{
+	button{
+		display: block;
+		width: 100px;
+		border: none;
+		background: @c5;
+		color: @c2;
+		padding: 5px;
+		.font;
+		font-size: 0.9em;
+		&:hover{
+			background: @c3;
+		}
+	}
+}
+
+
+
+
+.adminmenu{
+
+	margin: 0;
+	width: 100%;
+	z-index: 1000;
+	ul{
+		overflow: hidden;
+		background: @c2;
+		li{
+			float: left;
+			margin: 5px 2px;
+			font-size: 0.7em;
+			a, a:visited{
+				display: block;
+				color: @c1;
+				padding: 6px 4px;
+				&:hover, &.active{
+					background: @c3;
+					color: @c2;
+				}
+			}
+		}
+	}
+}
+
+
+.question{
+	font-size: 0.8em;
+	font-weight: bold;
+}
+
+.clear{
+		width: 100%;
+		background: @c4;
+		height: 2px;
+		visibility: visible;
+		clear: both;
+		margin: 20px 0;
+}
+
+#insertWork, #insertImage, #insertVideo{
+	width: 90%;
+	margin: 40px auto;
+	legend{
+		font-size: 2em;
+		margin: 20px 0;
+		color: @c2*2.5;
+	}
+	label{
+		display: inline-block;
+		width: 25%;
+		float: left;
+		padding: 5px 0;
+	}
+	input, textarea, [required="true"], select{
+		width: 70%;
+		.font;
+		float: right;
+		padding: 5px 0;
+		background: transparent;
+		border: 1px solid @c2*2;
+	}
+	textarea{
+		height: 80px;
+	}
+	
+	button{
+		display: block;
+		width: 200px;
+		border: none;
+		background: @c2;
+		color: @c1;
+		padding: 5px;
+		.font;
+		font-size: 0.9em;
+		margin: 20px 0;
+		&:hover{
+			background: @c3;
+			color: @c2;
+		}
+	}
+}
+
+.trabajos{
+	width: 90%;
+	margin: 40px auto;
+	h2{
+		.font;
+		font-weight: normal;
+		font-size: 2em;
+		margin: 20px 0;
+		color: @c2*2.5;
+	}
+	.sluga{
+		background: @c3;
+		text-decoration: none;
+		padding: 1px;
+		font-size: 0.8em;
+		&:visited{
+			color: @c2;
+		}
+	}
+	.projectimage{
+		width: 200px;
+		float: left;
+		margin: 0 10px 10px 0;
+	}
+	span{
+		background: @c4;
+		&.text_es, &.text_en, &.credits{
+			display: block;
+		}
+	}
+	.edite{
+		color: @c2*1.5;
+	}
+	.delproject{
+		text-decoration: none;
+		background: @c5;
+		color: @c2;
+		font-size: 0.8em;
+		padding: 2px;
+		float: right;
+		&:hover{
+			&::after{
+				content: "No podra ser recuperado.";
+			}
+		}
+	}
+
+	
+}
+
+#imagesList{
+	width: 90%;
+	margin: 40px auto;
+	h2{
+		.font;
+		font-weight: normal;
+		font-size: 2em;
+		margin: 20px 0;
+		color: @c2*2.5;
+	}
+	.adminimages{
+		width: 140px;
+		height: 120px;
+		overflow: hidden;
+		float: left;
+		margin: 2px;
+		position: relative;
+		img{
+			width: 100%;
+		}
+		a{
+			position: absolute;
+			top: 0;
+			text-decoration: none;
+			background: @c5;
+			width: 100%;
+			text-align: center;
+			color: @c2;
+			display: block;
+			&:hover{
+				background: @c6;
+			}
+		}
+	}
+}
+
+#worksPosition{
+	width: 90%;
+	margin: 40px auto;
+	.savepositions{
+		display: block;
+		padding: 10px;
+		text-decoration: none;
+		background: @c3;
+		color: @c2;
+		text-align: center;
+		&:hover{
+			background: @c5;
+		}
+	}
+}
+
+
+
+
+.deployable{
+	display: none;
+}
+
+
+
+
